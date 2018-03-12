@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../_services/authentication.service'
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -7,24 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  model: any = {};
   CreateForm = false;
   Contracts: any = {};
   TxnRef = false;
   TransactionRef: number;
+  TxnNo: any = {};
   
-  constructor() { 
+  constructor(    
+    private http: HttpClient,    
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService
+) { 
   	this.TransactionRef = 0;
-  	this.Contracts = [
-  {
-  	"Item":"1",
-  	"Quantity":1,
-  	"Value":100
-  },
-  {
-  	"Item":"2",
-  	"Quantity":1,
-  	"Value":200
-  }];
+  	/*this.Contracts = [
+    {
+  	  "item":"1",
+  	  "qty":1,
+  	  "value":100
+    },
+    {
+  	  "item":"2",
+  	  "qty":1,
+  	  "value":200
+    }];*/
+    this.Contracts = [];
   }
 
   ngOnInit() {
@@ -37,6 +48,13 @@ export class HomeComponent implements OnInit {
   }
 
   Submit(){
+    this.Contracts.push({
+      "username": "Wade",
+      "item": this.model.item,
+      "qty": this.model.qty,
+      "value": this.model.value
+    });
+    this.TxnNo = this.http.post('http://54.83.145.216:3000/enterprise/create', {Contract: this.Contracts});
   	this.CreateForm = false;
   	this.TxnRef = true;
   	this.TransactionRef = 100;
@@ -47,4 +65,12 @@ export class HomeComponent implements OnInit {
   	this.TxnRef = false;
   }
 
+  Logout(){
+      this.authenticationService.logout();
+      this.router.navigate(['Login']);
+  }
+
+  Get() {
+    //this.http.get<any>('http://54.83.145.216:3000/enterprise/contracts/Wade');         
+  }
 }

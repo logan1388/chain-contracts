@@ -32,16 +32,17 @@ export class LoginComponent implements OnInit {
 
   login(){
   	/*this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });*/
-                localStorage.setItem('currentUser', JSON.stringify({ username: 'Shiv', password: 'pass123'}));
+    this.authenticationService.login(this.model.username, this.model.password)
+      .subscribe(
+          data => {
+            this.router.navigate([this.returnUrl]);
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          }
+      );*/
+    localStorage.setItem('currentUser', JSON.stringify({ username: 'Shiv', password: 'pass123'}));
     this.router.navigate(['']);
     this.username = this.model.username;
     this.password = this.model.password;

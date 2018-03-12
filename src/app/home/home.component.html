@@ -5,15 +5,15 @@
 	<div class="row col-sm-12 col-lg-12">
   <div class="form-group col-sm-4 col-lg-4">
     <label for="exampleInputItem">Item</label>
-    <input type="form-text" class="form-control" id="InputItem" placeholder="Enter Item">
+    <input type="form-text" class="form-control" name="item" [(ngModel)]="model.item" #item="ngModel" id="InputItem" placeholder="Enter Item">
   </div>
   <div class="form-group col-sm-4 col-lg-4">
     <label for="exampleInputQty">Quantity</label>
-    <input type="number" class="form-control" id="InputQty" placeholder="Enter Quantity">
+    <input type="number" class="form-control" name="qty" [(ngModel)]="model.qty" #qty="ngModel" id="InputQty" placeholder="Enter Quantity">
   </div>
   <div class="form-group col-sm-4 col-lg-4">
   	<label for="exampleInputValue">Value</label>
-    <input type="number" class="form-control" id="InputValue">
+    <input type="number" class="form-control" name="value" [(ngModel)]="model.value" #value="ngModel" id="InputValue">
   </div>
 </div>
 <br>
@@ -28,6 +28,7 @@
 </div>
 <div>
 <ul class="list-group">
-  <li *ngFor="let contract of Contracts" class="list-group-item">Item: {{contract.Item}}, Quantity: {{contract.Quantity}}, Value: {{contract.Value}}</li>
+  <li *ngFor="let contract of Contracts" class="list-group-item">Item: {{contract.item}}, Quantity: {{contract.qty}}, Value: {{contract.value}}</li>
 </ul>
-</div>
+</div><br><br>
+<button class="btn btn-primary" (click)=Logout()>Logout</button>
