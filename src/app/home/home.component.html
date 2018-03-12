@@ -28,7 +28,6 @@
 </div>
 <div>
 <ul class="list-group">
-  <li class="list-group-item">Item: {{Contracts[0].Item}}, Quantity: {{Contracts[0].Quantity}}, Value: {{Contracts[0].Value}}</li>
-  <li class="list-group-item">Item: {{Contracts[1].Item}}, Quantity: {{Contracts[1].Quantity}}, Value: {{Contracts[1].Value}}</li>
+  <li *ngFor="let contract of Contracts" class="list-group-item">Item: {{contract.Item}}, Quantity: {{contract.Quantity}}, Value: {{contract.Value}}</li>
 </ul>
 </div>
