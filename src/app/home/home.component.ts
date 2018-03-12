@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   Contracts: any = {};
   TxnRef = false;
   TransactionRef: number;
+  Transactions: any = [];
   TxnNo: any = {};
   role: string;
   username: string;
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit {
         this.CreateBtn = false;
       else if(this.role == 'Enterprise')
         this.CreateBtn = true;
+      this.GetAll();
   }
 
   Create(){
@@ -86,6 +88,15 @@ export class HomeComponent implements OnInit {
         {
           this.TxnRef = true;
           this.TransactionRef = data[data.length - 1].assetId;
+          this.Transactions = data;
+        });
+    }
+
+  GetAll() {
+    this.http.get<any>('http://54.83.145.216:3000/enterprise/contracts/'+this.username).subscribe(
+        data => 
+        {
+          this.Transactions = data;
         });
     }
     //console.log(Ref);       

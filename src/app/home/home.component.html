@@ -28,7 +28,8 @@
 </div>
 <div>
 <ul class="list-group">
-  <li *ngFor="let contract of Contracts" class="list-group-item">Item: {{contract.item}}, Quantity: {{contract.qty}}, Value: {{contract.value}}</li>
+  <!--<li *ngFor="let contract of Contracts" class="list-group-item">Item: {{contract.item}}, Quantity: {{contract.qty}}, Value: {{contract.value}}</li>-->
+  <li *ngFor="let Transaction of Transactions" class="list-group-item">Transaction Ref# : {{Transaction.assetId}}</li>
 </ul>
 </div><br><br>
 <button class="btn btn-primary" (click)=Logout()>Logout</button>
