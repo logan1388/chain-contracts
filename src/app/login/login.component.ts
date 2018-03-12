@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       }
 
   login(){
-  	/*this.loading = true;
+  	this.loading = true;
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
           data => {
@@ -47,13 +47,16 @@ export class LoginComponent implements OnInit {
                 fragment: role
               };
               this.router.navigate([''], role);
+              //localStorage.setItem('currentUser', JSON.stringify({ username: this.model.username, password: 'Star124'}));
+              localStorage.setItem('currentUser', this.model.username);
+              localStorage.setItem('Role', role);
             }
           }
-      );*/
-    localStorage.setItem('currentUser', JSON.stringify({ username: 'Wade', password: 'Star124'}));
+      );
+    /*localStorage.setItem('currentUser', JSON.stringify({ username: 'Wade', password: 'Star124'}));
     this.router.navigate(['']);
     this.username = this.model.username;
-    this.password = this.model.password;
+    this.password = this.model.password;*/
   }
 
 }

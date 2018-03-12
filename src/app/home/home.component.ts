@@ -14,11 +14,13 @@ export class HomeComponent implements OnInit {
 
   model: any = {};
   CreateForm = false;
+  CreateBtn = false;
   Contracts: any = {};
   TxnRef = false;
   TransactionRef: number;
   TxnNo: any = {};
-  role: any;
+  role: string;
+  username: string;
   
   constructor(    
     private http: HttpClient,    
@@ -27,25 +29,18 @@ export class HomeComponent implements OnInit {
     private authenticationService: AuthenticationService
 ) { 
   	this.TransactionRef = 0;
-  	/*this.Contracts = [
-    {
-  	  "item":"1",
-  	  "qty":1,
-  	  "value":100
-    },
-    {
-  	  "item":"2",
-  	  "qty":1,
-  	  "value":200
-    }];*/
     this.Contracts = [];
   }
 
   ngOnInit() {
-  	/*this.role = this.route
-      .data
-      .subscribe(v => console.log(v));
-      console.log("Role: "+this.role);*/
+      this.role = localStorage.getItem('Role');
+      this.username = localStorage.getItem('currentUser');
+      console.log("Role: "+this.role);
+      console.log("Username: "+this.username);
+      if(this.role == 'Supplier')
+        this.CreateBtn = false;
+      else if(this.role == 'Enterprise')
+        this.CreateBtn = true;
   }
 
   Create(){
@@ -60,7 +55,7 @@ export class HomeComponent implements OnInit {
       "qty": this.model.qty,
       "value": this.model.value
     });
-    this.http.post('http://54.83.145.216:3000/enterprise/create', {username: "Wade", item: this.model.item, qty: this.model.qty, value: this.model.value})
+    this.http.post('http://54.83.145.216:3000/enterprise/create', {username: this.username, item: this.model.item, qty: this.model.qty, value: this.model.value})
     .subscribe(
       res => {
         console.log(res);
@@ -86,7 +81,7 @@ export class HomeComponent implements OnInit {
   }
 
   Get() {
-    this.http.get<any>('http://54.83.145.216:3000/enterprise/contracts/Wade').subscribe(
+    this.http.get<any>('http://54.83.145.216:3000/enterprise/contracts/'+this.username).subscribe(
         data => 
         {
           this.TxnRef = true;
