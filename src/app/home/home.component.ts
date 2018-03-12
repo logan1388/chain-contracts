@@ -51,12 +51,12 @@ export class HomeComponent implements OnInit {
   }
 
   Submit(){
-    this.Contracts.push({
+    /*this.Contracts.push({
       "username": "Wade",
       "item": this.model.item,
       "qty": this.model.qty,
       "value": this.model.value
-    });
+    });*/
     this.http.post('http://54.83.145.216:3000/enterprise/create', {username: this.username, item: this.model.item, qty: this.model.qty, value: this.model.value})
     .subscribe(
       res => {
