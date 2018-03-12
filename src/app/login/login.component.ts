@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
 import { AuthenticationService } from '../_services/authentication.service'
 import { AlertService } from '../_services/alert.service';
@@ -35,14 +35,22 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
           data => {
-            this.router.navigate([this.returnUrl]);
+            this.router.navigate(['']);
           },
           error => {
             this.alertService.error(error);
             this.loading = false;
+            if(error.error != null){
+              var role = error.error.text;
+              let navigationExtras: NavigationExtras = {
+                //queryParams: { 'role': role }
+                fragment: role
+              };
+              this.router.navigate([''], role);
+            }
           }
       );*/
-    localStorage.setItem('currentUser', JSON.stringify({ username: 'Shiv', password: 'pass123'}));
+    localStorage.setItem('currentUser', JSON.stringify({ username: 'Wade', password: 'Star124'}));
     this.router.navigate(['']);
     this.username = this.model.username;
     this.password = this.model.password;

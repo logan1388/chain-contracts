@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service'
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable }         from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,7 @@ export class HomeComponent implements OnInit {
   TxnRef = false;
   TransactionRef: number;
   TxnNo: any = {};
+  role: any;
   
   constructor(    
     private http: HttpClient,    
@@ -39,7 +42,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-  	
+  	/*this.role = this.route
+      .data
+      .subscribe(v => console.log(v));
+      console.log("Role: "+this.role);*/
   }
 
   Create(){
@@ -54,10 +60,19 @@ export class HomeComponent implements OnInit {
       "qty": this.model.qty,
       "value": this.model.value
     });
-    this.TxnNo = this.http.post('http://54.83.145.216:3000/enterprise/create', {Contract: this.Contracts});
+    this.http.post('http://54.83.145.216:3000/enterprise/create', {username: "Wade", item: this.model.item, qty: this.model.qty, value: this.model.value})
+    .subscribe(
+      res => {
+        console.log(res);
+            this.Get();
+      },
+      err => {
+        console.log("Error occured");
+            this.Get();
+      });
   	this.CreateForm = false;
-  	this.TxnRef = true;
-  	this.TransactionRef = 100;
+  	//this.TxnRef = true;
+  	//this.TransactionRef = 100;
   }
 
   Cancel(){
@@ -71,6 +86,12 @@ export class HomeComponent implements OnInit {
   }
 
   Get() {
-    //this.http.get<any>('http://54.83.145.216:3000/enterprise/contracts/Wade');         
+    this.http.get<any>('http://54.83.145.216:3000/enterprise/contracts/Wade').subscribe(
+        data => 
+        {
+          this.TxnRef = true;
+          this.TransactionRef = data[data.length - 1].assetId;
+        });
+    }
+    //console.log(Ref);       
   }
-}
